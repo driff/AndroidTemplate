@@ -1,0 +1,30 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+enableFeaturePreview("VERSION_CATALOGS")
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from("com.driff:catalog-template:1.0.0")
+        }
+    }
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven{
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/driff/catalog-template"
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_READ_TOKEN")
+            }
+        }
+    }
+}
+rootProject.name = "AndroidTemplate"
+include ':app'
