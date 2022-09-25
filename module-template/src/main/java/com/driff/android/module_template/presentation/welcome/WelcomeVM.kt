@@ -1,10 +1,10 @@
 package com.driff.android.module_template.presentation.welcome
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.driff.android.module_template.domain.usecase.TemplateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,11 +16,12 @@ class WelcomeVM @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     ): ViewModel() {
 
-
+    val welcomeMessageState = savedStateHandle.getStateFlow(WELCOME_MESSAGE, "")
+        .flatMapLatest { flowOf(useCase(null)) }
 
     fun fetchWelcomeMessage() = viewModelScope.launch {
-        val message = useCase(null)
-        savedStateHandle.set(WELCOME_MESSAGE, message)
+        savedStateHandle[WELCOME_MESSAGE] = useCase(null)
+        return@launch
     }
 
 

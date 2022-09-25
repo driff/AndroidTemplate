@@ -37,6 +37,12 @@ android {
     buildFeatures {
         compose true
     }
+
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+        unitTests.includeAndroidResources  = true
+        unitTests.returnDefaultValues = true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.compiler.version.get()
     }
@@ -49,8 +55,8 @@ dependencies {
     implementation libs.bundles.ktor.android
     kapt libs.di.hilt.compiler
     testImplementation libs.bundles.android.testing
+    testImplementation 'app.cash.turbine:turbine:0.11.0'
     androidTestImplementation libs.bundles.android.testing
 
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    debugImplementation libs.bundles.android.testing.extra
 }

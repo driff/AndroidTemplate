@@ -9,7 +9,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            from("com.driff:catalog-template:1.0.1")
+            from("com.driff:catalog-template:1.0.5")
         }
     }
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)

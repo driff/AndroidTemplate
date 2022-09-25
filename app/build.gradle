@@ -61,6 +61,5 @@ dependencies {
     testImplementation libs.bundles.android.testing
     androidTestImplementation libs.bundles.android.testing
 
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    debugImplementation libs.bundles.android.testing.extra
 }
