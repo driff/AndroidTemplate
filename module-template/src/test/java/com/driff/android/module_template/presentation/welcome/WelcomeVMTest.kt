@@ -6,24 +6,16 @@ import app.cash.turbine.test
 import com.driff.android.module_template.data.repository.TemplateRepository
 import com.driff.android.module_template.data.repository.TemplateRepositoryImp
 import com.driff.android.module_template.domain.usecase.ModuleTemplateUseCase
-import com.driff.android.module_template.domain.usecase.TemplateUseCase
-import com.driff.android.module_template.utils.getOrAwaitValue
-import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +29,7 @@ class WelcomeVMTest {
     private lateinit var viewmodel: WelcomeVM
     private val repository: TemplateRepository = TemplateRepositoryImp()
     private val stateMap = mutableMapOf<String, Any?>()
-    private val useCase: TemplateUseCase<Any?, String> = spyk(ModuleTemplateUseCase(repository))
+    private val useCase: ModuleTemplateUseCase = spyk(ModuleTemplateUseCase(repository))
     private val stateHandler: SavedStateHandle = SavedStateHandle(stateMap)
 
     @Before
@@ -54,7 +46,7 @@ class WelcomeVMTest {
     @Test
     fun `GIVEN viewmodel instance WHEN fetchWelcomeMessage is invoked THEN it should fetch it from ModuleTemplateUseCase`() = runTest {
         viewmodel.fetchWelcomeMessage()
-        coVerify { useCase(any()) }
+        coVerify { useCase.invoke(any()) }
     }
 
     @Test

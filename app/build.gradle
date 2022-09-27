@@ -53,7 +53,7 @@ android {
 }
 
 dependencies {
-
+    implementation project(":module-template")
     implementation libs.bundles.android.base
     implementation libs.bundles.android.hilt
     implementation libs.bundles.ktor.android
