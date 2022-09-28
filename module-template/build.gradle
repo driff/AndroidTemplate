@@ -15,6 +15,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
+    buildFeatures {
+        compose true
+
+        // Disable unused AGP features
+        buildConfig false
+        aidl false
+        renderScript false
+        resValues false
+        shaders false
+    }
 
     buildTypes {
         release {
@@ -37,8 +47,24 @@ android {
     buildFeatures {
         compose true
     }
+
+    testOptions {
+        // Used for Unit testing Android dependent elements in /test folder
+//        unitTests {
+//            includeAndroidResources = true
+//            returnDefaultValues = true
+//        }
+    }
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.compiler.version.get()
+    }
+    packagingOptions {
+        exclude "META-INF/licenses/**"
+        exclude "META-INF/LICENSE-notice.md"
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/DEPENDENCIES"
+        exclude "META-INF/LGPL2.1"
+        exclude "META-INF/LICENSE.md"
     }
 }
 
@@ -51,6 +77,9 @@ dependencies {
     testImplementation libs.bundles.android.testing
     androidTestImplementation libs.bundles.android.testing
 
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    debugImplementation libs.bundles.android.testing.extra
+    androidTestImplementation "androidx.compose.ui:ui-test:$libs.versions.compose.version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+
+
 }

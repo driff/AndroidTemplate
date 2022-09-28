@@ -3,11 +3,10 @@ package com.driff.android.module_template.domain.usecase
 import com.driff.android.module_template.data.repository.TemplateRepository
 import javax.inject.Inject
 
-class ModuleTemplateUseCase @Inject constructor(private val repository: TemplateRepository): TemplateUseCase<Any?, String> {
+class ModuleTemplateUseCase @Inject constructor(private val repository: TemplateRepository) {
 
-    override suspend fun invoke(input: Any?): String {
+    suspend operator fun invoke(): String {
         return repository.getMessageToDisplay()
     }
-
 
 }
